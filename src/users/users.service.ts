@@ -7,6 +7,7 @@ import { Students } from './schema/user.schema';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import moment from 'moment';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -54,6 +55,39 @@ export class UsersService {
       console.log(error);
       throw error
     }
+  }
+
+  async signIn(body: LoginUserDto) {
+    let user = await this.studentModel.findOne({ email: body.email })
+
+    let payload = { id: user?._id, email: user?.email }
+
+    if (!user) {
+      throw new HttpException({ error_description: 'Invalid email', error_code: 'INVALID_EMAIL' }, HttpStatus.UNAUTHORIZED);
+    }
+
+    const isMatch = await bcrypt.compare(body.password, user.password);
+
+    console.log("Both passwords=>", user.password, body.password, isMatch);
+    console.log("My User is=>", user);
+
+
+    if (!isMatch) {
+      throw new HttpException({ error_description: 'Wrong password', error_code: 'WRONG_PASSWORD' }, HttpStatus.UNAUTHORIZED);
+    }
+
+    let access_token = await this.jwtService.signAsync(payload)
+    const data = {
+      _id: user._id,
+      email: user.email,
+      name: user.name,
+      fname: user.fname,
+      contact: user.contact,
+      address: user.address,
+      profilePic: user.profilePic,
+    }
+
+    return { access_token, user: data }
   }
 
   findAll() {
