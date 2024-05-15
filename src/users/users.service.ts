@@ -119,6 +119,6 @@ export class UsersService {
     const item = await this.studentModel.findByIdAndDelete(id)
     console.log("deleted=>", item);
 
-    return { message: "Updated successfully" };
+    return { message: "Deleted successfully" };
   }
 }

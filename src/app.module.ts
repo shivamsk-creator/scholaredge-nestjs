@@ -6,6 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersService } from './users/users.service';
+import { CategoriesModule } from './categories/categories.module';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true, }), JwtModule.register({
@@ -17,7 +18,7 @@ import { UsersService } from './users/users.service';
       uri: process.env.DB_URL,
       dbName: "practice"
     }),
-  }), UsersModule],
+  }), UsersModule, CategoriesModule],
   controllers: [AppController],
   providers: [AppService],
 })
