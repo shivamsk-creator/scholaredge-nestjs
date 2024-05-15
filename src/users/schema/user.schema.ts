@@ -15,8 +15,8 @@ export class Students {
     @Prop({ type: String, default: null })
     address: string
 
-    @Prop({ type: Number, default: null })
-    contact: number
+    @Prop({ type: String, default: null })
+    contact: string
 
     @Prop({ type: String, default: null, required: true })
     email: string

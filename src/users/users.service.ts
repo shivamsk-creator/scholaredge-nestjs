@@ -90,19 +90,35 @@ export class UsersService {
     return { access_token, user: data }
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    const users = await this.studentModel.find()
+    return users;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    const user = await this.studentModel.findOne({ _id: id })
+
+    if (!user) {
+      throw new HttpException({ error_description: 'User does not exist', error_code: 'NO_EXISTING_USER' }, HttpStatus.NOT_FOUND)
+    }
+    return user
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: string, updateUserDto: UpdateUserDto) {
+
+
+    const item = await this.studentModel.findByIdAndUpdate(id, updateUserDto, { new: true })
+    if (!item) {
+      throw new HttpException({ error_description: 'User does not exist', error_code: 'NO_EXISTING_USER' }, HttpStatus.NOT_FOUND)
+    }
+
+    return { message: "Updated successfully", data: item };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const item = await this.studentModel.findByIdAndDelete(id)
+    console.log("deleted=>", item);
+
+    return { message: "Updated successfully" };
   }
 }

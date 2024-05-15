@@ -8,6 +8,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Schelar edge')
     .setDescription('This is scholar edge backend')
+    .addBearerAuth({ type: 'http', name: 'token', in: 'header' }, 'authentication')
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);
