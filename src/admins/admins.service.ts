@@ -86,6 +86,7 @@ export class AdminsService {
     return { message: "Updated successfully" };
   }
 
+
   async remove(id: string) {
     const item = await this.adminsModel.findByIdAndDelete(id)
 

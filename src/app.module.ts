@@ -8,6 +8,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersService } from './users/users.service';
 import { CategoriesModule } from './categories/categories.module';
 import { AdminsModule } from './admins/admins.module';
+import { InstructorsModule } from './instructors/instructors.module';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true, }), JwtModule.register({
@@ -17,9 +18,9 @@ import { AdminsModule } from './admins/admins.module';
   }), MongooseModule.forRootAsync({
     useFactory: () => ({
       uri: process.env.DB_URL,
-      dbName: "practice"
+      dbName: process.env.DB_NAME
     }),
-  }), UsersModule, CategoriesModule, AdminsModule],
+  }), UsersModule, CategoriesModule, AdminsModule, InstructorsModule],
   controllers: [AppController],
   providers: [AppService],
 })
