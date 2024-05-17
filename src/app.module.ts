@@ -10,6 +10,7 @@ import { CategoriesModule } from './categories/categories.module';
 import { AdminsModule } from './admins/admins.module';
 import { InstructorsModule } from './instructors/instructors.module';
 import { CoursesModule } from './courses/courses.module';
+import { EnrollmentsModule } from './enrollments/enrollments.module';
 
 @Module({
   imports: [ConfigModule.forRoot({ isGlobal: true, }), JwtModule.register({
@@ -21,7 +22,7 @@ import { CoursesModule } from './courses/courses.module';
       uri: process.env.DB_URL,
       dbName: process.env.DB_NAME
     }),
-  }), UsersModule, CategoriesModule, AdminsModule, InstructorsModule, CoursesModule],
+  }), UsersModule, CategoriesModule, AdminsModule, InstructorsModule, CoursesModule, EnrollmentsModule],
   controllers: [AppController],
   providers: [AppService],
 })

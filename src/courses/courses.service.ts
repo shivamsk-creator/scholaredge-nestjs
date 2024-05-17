@@ -33,6 +33,9 @@ export class CoursesService {
 
   async update(id: string, updateCourseDto: UpdateCourseDto) {
     const item = await this.courseModel.findByIdAndUpdate(id, updateCourseDto, { new: true })
+    if (!item) {
+
+    }
     return { message: "Updated successfully" };
   }
 
