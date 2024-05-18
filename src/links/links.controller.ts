@@ -33,9 +33,9 @@ export class LinksController {
 
   @ApiBearerAuth("authentication")
   @UseGuards(AuthGuard)
-  @Get(':id')
-  findByCourse(@Param('course/:id') id: string) {
-    return this.linksService.findOne(id);
+  @Get('course/:id')
+  findByCourse(@Param(':id') id: string) {
+    return this.linksService.findByCourse(id);
   }
 
   @ApiBearerAuth("authentication")

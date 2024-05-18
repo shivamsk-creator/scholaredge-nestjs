@@ -23,7 +23,7 @@ export class LinksService {
   async findAll() {
     const links = await this.linkModel.find()
 
-    return LinksService;
+    return links;
   }
 
   async findOne(id: string) {
@@ -38,7 +38,7 @@ export class LinksService {
 
   async findByCourse(id: string) {
 
-    const links = await this.linkModel.find({ course: id })
+    const links = await this.linkModel.find({ course: id }).lean(true)
 
 
     return links;
